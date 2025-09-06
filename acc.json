@@ -1,0 +1,20 @@
+[
+  {
+    "username": "admin",
+    "password": "admin123",
+    "role": "ADMIN",
+    "expired": ""
+  },
+  {
+    "username": "dimaz",
+    "password": "dimz123",
+    "role": "VIP",
+    "expired": ""
+  },
+  {
+    "username": "riicode",
+    "password": "rii",
+    "role": "ADMIN",
+    "expired": "30d"
+  }
+]
