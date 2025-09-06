@@ -54,22 +54,28 @@
         }
 
         .login-container {
-    background: rgba(255, 255, 255, 0.15); /* transparan */
-    backdrop-filter: blur(20px);           /* efek kaca */
-    -webkit-backdrop-filter: blur(20px);   /* buat Safari/Chrome */
+    background: rgba(255, 255, 255, 0.08); /* lebih transparan */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-radius: 25px;
     padding: 50px 40px;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
     width: 100%;
     max-width: 450px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     position: relative;
     z-index: 1;
     animation: slideUp 0.8s ease-out;
-    min-height: auto; 
+    min-height: auto;
     box-sizing: border-box;
+
+    margin-top: 100px; /* TURUNIN CARD KE BAWAH */
 }
 
+.logo i {
+    color: #fff; /* tengkorak jadi putih */
+    font-size: 3.5rem; /* kalau mau lebih gede */
+}
         @keyframes slideUp {
             from {
                 opacity: 0;
