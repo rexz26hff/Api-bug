@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Bug Tool - Premium Login</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJTNi40NzcgMjIgMTIgMjJTMjIgMTcuNTIzIDIyIDEyUzE3LjUyMyAyIDEyIDJaIiBmaWxsPSIjRkY2QjAwIi8+CjxwYXRoIGQ9Ik0xNi4xIDlMMTIgMTMuMUw3LjkgOUw2LjUgMTAuNEwxMiAxNS45TDE3LjUgMTAuNEwxNi4xIDlaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: auto;
+        }
+
+        /* Animated background elements */
+        .bg-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-50px, -50px) rotate(360deg); }
+        }
+
+        .login-container {
+    background: rgba(255, 255, 255, 0.15); /* transparan */
+    backdrop-filter: blur(20px);           /* efek kaca */
+    -webkit-backdrop-filter: blur(20px);   /* buat Safari/Chrome */
+    border-radius: 25px;
+    padding: 50px 40px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 450px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 1;
+    animation: slideUp 0.8s ease-out;
+    min-height: auto; 
+    box-sizing: border-box;
+}
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        .logo i { /* Style for Font Awesome icon in logo */
+            color: #333; /* Default color for the skull icon */
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .premium-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-top: 15px;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            animation: glow 2s infinite alternate;
+        }
+        .premium-badge i { /* Style for Font Awesome icon inside badge */
+            margin-right: 5px; /* Spasi antara ikon dan teks */
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4); }
+            to { box-shadow: 0 8px 35px rgba(255, 107, 107, 0.6); }
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .form-group label i { /* Style for icons in labels */
+            margin-right: 8px; /* Spasi antara ikon dan teks label */
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 18px 25px;
+            border: 3px solid rgba(102, 126, 234, 0.2);
+            border-radius: 15px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            outline: none;
+            font-weight: 500;
+        }
+
+        .form-group input:focus {
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 5px rgba(102, 126, 234, 0.15);
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+            font-weight: 400;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 20px 30px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .login-btn i { /* Style for Font Awesome icon in button */
+            margin-right: 10px; /* Spasi antara ikon dan teks tombol */
+        }
+
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        .login-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .login-btn:disabled {
+            background: linear-gradient(135deg, #ccc, #999);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 15px;
+            font-weight: 600;
+            display: none;
+            animation: slideIn 0.4s ease;
+            text-align: center;
+        }
+
+        .result.success {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border-left: 6px solid #2e7d32;
+        }
+        .result.success i { margin-right: 8px; }
+
+        .result.error {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+            border-left: 6px solid #c62828;
+        }
+        .result.error i { margin-right: 8px; }
+
+        /* Adjusted Features Section Styling */
+        .features {
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #FF6B6B;
+            backdrop-filter: blur(10px);
+        }
+
+        .features h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            text-align: center;
+        }
+        .features h3 i { /* Style for Font Awesome icon in feature title */
+            margin-right: 10px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 12px;
+        }
+
+        .feature-item {
+            background: white;
+            padding: 12px 8px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            font-weight: 600;
+            color: #FF6B6B;
+            border: 2px solid rgba(255, 107, 107, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .feature-item i { /* Style for Font Awesome icon in feature items */
+            margin-right: 5px; /* Spasi antara ikon dan teks */
+        }
+
+        .feature-item:hover {
+            background: #FF6B6B;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .loading {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 12px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 35px;
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+        .footer i { /* Style for Font Awesome icon in footer links */
+            margin-right: 5px;
+        }
+
+        .footer a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .demo-accounts {
+            background: rgba(76, 175, 80, 0.1);
+            border: 2px solid rgba(76, 175, 80, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .demo-accounts h4 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .demo-accounts h4 i { /* Style for Font Awesome icon in demo accounts title */
+            margin-right: 8px;
+        }
+
+        .demo-accounts p {
+            color: #388e3c;
+            font-size: 0.9rem;
+            margin: 5px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .demo-accounts p i { /* Style for Font Awesome icon in demo accounts text */
+            margin-right: 5px;
+        }
+
+        .demo-accounts p:hover {
+            background-color: rgba(76, 175, 80, 0.2);
+        }
+
+        /* --- MOBILE OPTIMIZATIONS (Revisi) --- */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+            }
+
+            .login-container {
+                padding: 30px 20px;
+                margin: 10px;
+                border-radius: 20px;
+                max-width: 100%;
+                min-height: auto;
+            }
+
+            .header {
+                margin-bottom: 25px;
+            }
+
+            .logo {
+                font-size: 3rem;
+                margin-bottom: 15px;
+            }
+            .logo i {
+                font-size: 3rem; /* Ensure Font Awesome icon scales with .logo */
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .premium-badge {
+                padding: 8px 18px;
+                font-size: 0.9rem;
+                margin-top: 10px;
+            }
+            .premium-badge i {
+                font-size: 0.8rem; /* Scale icon with badge font */
+            }
+
+            .features {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .features h3 {
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+            }
+            .features h3 i {
+                font-size: 1rem; /* Scale icon with h3 font */
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .feature-item {
+                padding: 10px 5px;
+                font-size: 0.8rem;
+            }
+            .feature-item i {
+                font-size: 0.8rem; /* Scale icon with item font */
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-group label {
+                font-size: 1rem;
+                margin-bottom: 6px;
+            }
+            .form-group label i {
+                font-size: 0.9rem; /* Scale icon with label font */
+            }
+
+            .form-group input {
+                padding: 14px 18px;
+                font-size: 0.95rem;
+            }
+
+            .login-btn {
+                padding: 16px 20px;
+                font-size: 1.05rem;
+                margin-bottom: 20px;
+            }
+            .login-btn i {
+                font-size: 1rem; /* Scale icon with button font */
+            }
+
+            .demo-accounts {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+
+            .demo-accounts h4 {
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+            .demo-accounts h4 i {
+                font-size: 0.9rem; /* Scale icon with h4 font */
+            }
+
+            .demo-accounts p {
+                font-size: 0.85rem;
+            }
+            .demo-accounts p i {
+                font-size: 0.8rem; /* Scale icon with p font */
+            }
+
+            .footer {
+                margin-top: 20px;
+                font-size: 0.85rem;
+            }
+            .footer i {
+                font-size: 0.8rem; /* Scale icon with footer font */
+            }
+        }
+
+        /* Further reduce for very small mobiles (e.g., width < 375px) */
+        @media (max-width: 375px) {
+            .login-container {
+                padding: 25px 15px;
+                margin: 5px;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            .feature-item {
+                font-size: 0.9rem;
+                padding: 12px 8px;
+            }
+            .feature-item i {
+                font-size: 0.9rem;
+            }
+            .form-group input {
+                padding: 12px 15px;
+            }
+            .login-btn {
+                padding: 14px 18px;
+            }
+            .login-btn i {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Security indicators */
+        .security-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .security-badge i {
+            margin-right: 5px;
+        }
+
+        /* Improved accessibility */
+        .form-group input:focus {
+            outline: 3px solid rgba(102, 126, 234, 0.3);
+            outline-offset: 2px;
+        }
+
+        .login-btn:focus {
+            outline: 3px solid rgba(102, 126, 234, 0.5);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <div class="login-container">
+        <div class="security-badge">
+            <i class="fa-solid fa-lock"></i> SECURE
+        </div>
+        
+        <div class="header">
+            <div class="logo"><i class="fa-solid fa-skull"></i></div>
+            <h1>SKID PANEL</h1>
+            <p>Premium WhatsApp Bug Tool</p>
+            <span class="premium-badge"><i class="fa-solid fa-star-and-crescent"></i> PREMIUM ACCESS ONLY <i class="fa-solid fa-star-and-crescent"></i></span>
+        </div>
+
+        <div class="features">
+            <h3><i class="fa-solid fa-rocket"></i> Premium Features</h3>
+            <div class="features-grid">
+                <div class="feature-item"><i class="fa-solid fa-fire"></i> FORCE CALL</div>
+                <div class="feature-item"><i class="fa-solid fa-burst"></i> CRASH BUG</div>
+                <div class="feature-item"><i class="fa-brands fa-apple"></i> iOS ATTACK</div>
+                <div class="feature-item"><i class="fa-solid fa-hourglass-half"></i> DELAY BUG</div>
+                <div class="feature-item"><i class="fa-solid fa-mobile-screen-button"></i> NATIVE FLOW</div>
+                <div class="feature-item"><i class="fa-solid fa-hat-wizard"></i> COMBO ATTACK</div>
+            </div>
+        </div>
+
+        <div class="demo-accounts">
+            <h4><i class="fa-solid fa-bullseye"></i> Demo Accounts Available</h4>
+            <p>👑 Admin: <span class="demo-user-pass" data-user="admin" data-pass="admin123"><i class="fa-solid fa-user-tie"></i> admin / admin123</span></p>
+            <p>💎 VIP: <span class="demo-user-pass" data-user="dimaz" data-pass="dimz123"><i class="fa-solid fa-gem"></i> dimaz / dimz123</span></p>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username"><i class="fa-solid fa-user"></i> Username</label>
+                <input type="text" id="username" placeholder="Enter your username" required autocomplete="username">
+            </div>
+
+            <div class="form-group">
+                <label for="password"><i class="fa-solid fa-key"></i> Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password">
+            </div>
+
+            <button type="submit" class="login-btn" id="loginBtn">
+                <i class="fa-solid fa-rocket"></i> ACCESS PREMIUM PANEL
+            </button>
+        </form>
+
+        <div id="result" class="result"></div>
+
+        <div class="footer">
+            <p><i class="fa-solid fa-lock"></i> Secured by Military-Grade Encryption</p>
+            <p>Powered by <a href="https://t.me/xpxteams" target="_blank"><i class="fa-brands fa-telegram"></i> @xpxteams</a></p>
+            <p>Developed by <a href="https://t.me/Dimzxzzx" target="_blank"><i class="fa-solid fa-laptop-code"></i> DimzxzzxXP 💎</a></p>
+            <p style="margin-top: 15px; font-size: 0.85rem; opacity: 0.8;">
+                <i class="fa-solid fa-triangle-exclamation"></i> For educational purposes only. Use responsibly.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Memeriksa apakah pengguna sudah login saat halaman dimuat
+        if (localStorage.getItem('authToken')) {
+            window.location.href = '/dashboard';
+        }
+
+        // Penanganan submit form login
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); // Mencegah refresh halaman
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const resultDiv = document.getElementById('result');
+            const loginBtn = document.getElementById('loginBtn');
+            
+            // Validasi input sederhana di sisi klien
+            if (!username || !password) {
+                showResult('❌ Username dan password tidak boleh kosong.', 'error');
+                return;
+            }
+
+            // Tampilkan status loading pada tombol
+            loginBtn.innerHTML = '<span class="loading"></span><i class="fa-solid fa-spinner fa-spin"></i> AUTHENTICATING...'; // Menambah ikon spinner
+            loginBtn.disabled = true; // Nonaktifkan tombol saat loading
+            resultDiv.style.display = 'none'; // Sembunyikan pesan hasil sebelumnya
+
+            try {
+                // --- SIMULASI PANGGILAN API LOGIN (Ganti dengan API real Anda) ---
+                const simulatedResponse = await new Promise(resolve => setTimeout(() => {
+                    if (
+                        (username === 'admin' && password === 'admin123') ||
+                        (username === 'dimaz' && password === 'dimz123')
+                    ) {
+                        const tokenPayload = btoa(JSON.stringify({ username: username, role: username === 'admin' ? 'Admin' : 'VIP', exp: Date.now() + 3600 * 1000 }));
+                        resolve({ success: true, message: 'Login berhasil!', token: tokenPayload });
+                    } else {
+                        resolve({ success: false, message: 'Username atau password salah.' });
+                    }
+                }, 1500));
+
+                const data = simulatedResponse;
+
+                if (data.success) {
+                    localStorage.setItem('authToken', data.token);
+                    showResult('✅ <i class="fa-solid fa-check-circle"></i> Login berhasil! Mengarahkan ke dashboard...', 'success'); // Menambah ikon check
+                    
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1500);
+                } else {
+                    showResult(`❌ <i class="fa-solid fa-times-circle"></i> ${data.message}`, 'error'); // Menambah ikon times
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                showResult('❌ <i class="fa-solid fa-exclamation-triangle"></i> Terjadi kesalahan jaringan. Silakan coba lagi.', 'error'); // Menambah ikon warning
+            } finally {
+                setTimeout(() => {
+                    loginBtn.innerHTML = '<i class="fa-solid fa-rocket"></i> ACCESS PREMIUM PANEL'; // Mengembalikan ikon roket
+                    loginBtn.disabled = false;
+                }, data.success ? 0 : 2000);
+            }
+        });
+
+        // Fungsi untuk menampilkan pesan hasil (sukses/error)
+        function showResult(message, type) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = message;
+            resultDiv.className = `result ${type}`;
+            resultDiv.style.display = 'block';
+        }
+
+        // Auto-fill kredensial demo saat mengklik teks akun demo
+        document.querySelectorAll('.demo-user-pass').forEach(span => {
+            span.addEventListener('click', function() {
+                const usernameInput = document.getElementById('username');
+                const passwordInput = document.getElementById('password');
+
+                usernameInput.value = this.dataset.user;
+                passwordInput.value = this.dataset.pass;
+                
+                this.style.backgroundColor = 'rgba(76, 175, 80, 0.3)';
+                setTimeout(() => {
+                    this.style.backgroundColor = '';
+                }, 300);
+
+                usernameInput.focus();
+            });
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('loginForm').dispatchEvent(new Event('submit'));
+            }
+            
+            if (e.key === 'Escape') {
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('result').style.display = 'none';
+                document.getElementById('username').focus();
+            }
+        });
+
+        // Peningkatan keamanan di sisi klien (tidak mutlak, tapi dapat menghambat)
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                (e.ctrlKey && e.key === 'U')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        document.addEventListener('selectstart', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+            }
+        });
+
+        // Menambahkan efek fokus pada parent form-group
+        document.querySelectorAll('.form-group input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.closest('.form-group').style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.closest('.form-group').style.transform = 'scale(1)';
+            });
+        });
+
+        if ('scrollBehavior' in document.documentElement.style) {
+            document.documentElement.style.scrollBehavior = 'smooth';
+        }
+    </script>
+</body>
+</html>

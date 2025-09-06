@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Bug Dashboard - Premium</title>
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJTNi40NzcgMjIgMTIgMjJTMjIgMTcuNTIzIDIyIDEyUzE3LjUyMyAyIDEyIDJaIiBmaWxsPSIjRkY2QjAwIi8+CjxwYXRoIGQ9Ik0xNi4xIDlMMTIgMTMuMUw3LjkgOUw2LjUgMTAuNEwxMiAxNS45TDE3LjUgMTAuNEwxNi4xIDlaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-y: auto; /* Allow vertical scroll */
+        }
+
+        .dashboard-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            animation: fadeIn 0.6s ease-out;
+            min-height: auto; /* Allow content to dictate height */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: clamp(2rem, 4vw, 2.5rem); /* Responsive font size */
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+        .header h1 i { /* Style for Font Awesome icon in header */
+            margin: 0 8px; /* Spasi di kiri dan kanan ikon */
+        }
+
+        .header p {
+            color: #666;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem); /* Responsive font size */
+            margin-bottom: 5px;
+        }
+
+        .premium-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: clamp(0.8rem, 2vw, 0.9rem); /* Responsive font size */
+            font-weight: 600;
+            margin-top: 10px;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        .premium-badge i { /* Style for Font Awesome icon inside badge */
+            margin-right: 5px; /* Spasi antara ikon dan teks */
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
+        .nav-btn {
+            flex: 1; /* Each button takes equal space */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: clamp(0.8rem, 2vw, 0.9rem); /* Responsive font size */
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+            white-space: nowrap; /* Prevent text wrapping inside button */
+        }
+        .nav-btn i { /* Style for Font Awesome icon in nav buttons */
+            margin-right: 8px;
+        }
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2); /* Active button style (Bug Dashboard) */
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-btn:not(.active) { /* Style for inactive button (DDOS Dashboard) */
+            background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .user-info {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .user-info h3 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: clamp(1rem, 2.5vw, 1.2rem); /* Responsive font size */
+        }
+        .user-info h3 i { /* Style for Font Awesome icon in user info */
+            margin-right: 5px;
+        }
+
+        .user-role {
+            display: inline-block;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: clamp(0.7rem, 1.8vw, 0.8rem); /* Responsive font size */
+            font-weight: 600;
+        }
+        .user-role i { /* Style for Font Awesome icon in user role */
+            margin-right: 5px;
+        }
+
+        .methods-info {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid #667eea;
+        }
+
+        .methods-info h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: clamp(1rem, 2.5vw, 1.2rem); /* Responsive font size */
+        }
+        .methods-info h3 i { /* Style for Font Awesome icon in methods info title */
+            margin-right: 10px;
+        }
+
+        .methods-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Adjusted minmax for more flexibility */
+            gap: 10px;
+        }
+
+        .method-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: clamp(0.8rem, 2vw, 0.9rem); /* Responsive font size */
+            font-weight: 600;
+            color: #667eea;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            white-space: nowrap; /* Prevent text wrapping inside item */
+            display: flex; /* Use flex to align icon and text */
+            align-items: center;
+            justify-content: center;
+        }
+        .method-item i { /* Style for Font Awesome icon in method items */
+            margin-right: 5px;
+        }
+
+        .method-item:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: clamp(0.9rem, 2vw, 1rem); /* Responsive font size */
+        }
+        .form-group label i { /* Style for Font Awesome icon in labels */
+            margin-right: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 12px;
+            font-size: clamp(0.9rem, 2vw, 1rem); /* Responsive font size */
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            outline: none;
+            appearance: none; /* Remove default select arrow */
+        }
+
+        .form-group select {
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23667eea" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Custom arrow */
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 18px;
+            padding-right: 40px; /* Make space for the arrow */
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .attack-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 12px;
+            font-size: clamp(1rem, 2.5vw, 1.1rem); /* Responsive font size */
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .attack-btn i { /* Style for Font Awesome icon in button */
+            margin-right: 10px;
+        }
+
+        .attack-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .attack-btn:hover::before {
+            left: 100%;
+        }
+
+        .attack-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .attack-btn:active {
+            transform: translateY(0);
+        }
+
+        .attack-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            font-weight: 500;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+        .result i { /* Style for Font Awesome icon in result messages */
+            margin-right: 8px;
+        }
+
+        .result.success {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border-left: 5px solid #2e7d32;
+        }
+
+        .result.error {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            color: white;
+            border-left: 5px solid #c62828;
+        }
+
+        .logout-btn {
+            width: 100%;
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: clamp(0.9rem, 2vw, 1rem); /* Responsive font size */
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .logout-btn i { /* Style for Font Awesome icon in logout button */
+            margin-right: 8px;
+        }
+
+        .logout-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        .logout-btn:active {
+            transform: translateY(0);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+            font-size: clamp(0.8rem, 1.8vw, 0.9rem); /* Responsive font size */
+            line-height: 1.4;
+        }
+        .footer i { /* Style for Font Awesome icon in footer */
+            margin-right: 5px;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+            color: #764ba2;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+            vertical-align: middle; /* Align spinner with text */
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- MOBILE OPTIMIZATIONS (Revisi) --- */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+                align-items: flex-start; /* Align to top on small screens */
+            }
+            .dashboard-container {
+                padding: 25px 20px; /* Reduced padding */
+                margin: 10px 5px; /* Adjust margin */
+                border-radius: 15px;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            .header {
+                margin-bottom: 25px;
+            }
+            .header h1 {
+                font-size: 2rem; /* Adjusted font size */
+            }
+            .header p {
+                font-size: 0.95rem; /* Adjusted font size */
+            }
+            .premium-badge {
+                padding: 7px 15px;
+                font-size: 0.8rem;
+            }
+
+            .nav-buttons {
+                flex-direction: column; /* Stack buttons vertically on small screens */
+                gap: 8px;
+            }
+            .nav-btn {
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
+            .nav-btn i {
+                margin-right: 6px;
+            }
+
+            .user-info {
+                padding: 12px;
+                margin-bottom: 20px;
+            }
+            .user-info h3 {
+                font-size: 1.1rem;
+            }
+            .user-role {
+                padding: 4px 12px;
+                font-size: 0.7rem;
+            }
+
+            .methods-info {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            .methods-info h3 {
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+            }
+            .methods-info h3 i {
+                margin-right: 8px;
+            }
+            .methods-list {
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Even smaller items */
+                gap: 8px;
+            }
+            .method-item {
+                padding: 8px;
+                font-size: 0.75rem;
+            }
+            .method-item i {
+                margin-right: 4px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+            .form-group label {
+                font-size: 0.9rem;
+                margin-bottom: 6px;
+            }
+            .form-group label i {
+                margin-right: 6px;
+            }
+            .form-group input,
+            .form-group select {
+                padding: 12px 15px;
+                font-size: 0.9rem;
+            }
+            .form-group select {
+                background-position: right 10px center;
+                background-size: 16px;
+                padding-right: 35px;
+            }
+
+            .attack-btn {
+                padding: 15px 25px;
+                font-size: 1rem;
+                margin-bottom: 15px;
+            }
+            .attack-btn i {
+                margin-right: 8px;
+            }
+
+            .result {
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+            .result i {
+                margin-right: 6px;
+            }
+
+            .logout-btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            .logout-btn i {
+                margin-right: 6px;
+            }
+
+            .footer {
+                margin-top: 20px;
+                font-size: 0.8rem;
+            }
+            .footer i {
+                margin-right: 4px;
+            }
+        }
+
+        /* Very small mobile devices */
+        @media (max-width: 375px) {
+            .dashboard-container {
+                padding: 20px 15px;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .nav-btn {
+                font-size: 0.8rem;
+                padding: 8px 12px;
+            }
+            .methods-list {
+                grid-template-columns: 1fr; /* Stack methods vertically on very small screens */
+            }
+            .method-item {
+                font-size: 0.85rem;
+                padding: 10px;
+            }
+            .form-group input,
+            .form-group select {
+                padding: 10px 12px;
+                font-size: 0.85rem;
+            }
+            .attack-btn {
+                font-size: 0.95rem;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <h1><i class="fa-solid fa-skull"></i> SKID PANEL <i class="fa-solid fa-skull"></i></h1>
+            <p>Premium WhatsApp Bug Tool</p>
+            <span class="premium-badge"><i class="fa-solid fa-star-and-crescent"></i> PREMIUM ACCESS <i class="fa-solid fa-star-and-crescent"></i></span>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="/dashboard" class="nav-btn active"><i class="fa-solid fa-bug"></i> Bug Dashboard</a>
+            <a href="/ddos-dashboard" class="nav-btn"><i class="fa-solid fa-bolt"></i> DDOS Dashboard</a>
+        </div>
+
+        <div class="user-info" id="userInfo">
+            <h3><i class="fa-solid fa-user-circle"></i> Welcome, <span id="username">User</span></h3>
+            <span class="user-role" id="userRole"><i class="fa-solid fa-crown"></i> VIP</span>
+        </div>
+
+        <div class="methods-info">
+            <h3><i class="fa-solid fa-rocket"></i> Available Attack Methods</h3>
+            <div class="methods-list">
+                <div class="method-item"><i class="fa-solid fa-fire"></i> FORCECALL</div>
+                <div class="method-item"><i class="fa-solid fa-burst"></i> CRASH</div>
+                <div class="method-item"><i class="fa-brands fa-apple"></i> IOS</div>
+                <div class="method-item"><i class="fa-solid fa-hourglass-half"></i> DELAY</div>
+                <div class="method-item"><i class="fa-solid fa-mobile-screen-button"></i> NATIVE</div>
+                <div class="method-item"><i class="fa-solid fa-hat-wizard"></i> COMBO</div>
+            </div>
+        </div>
+
+        <form id="attackForm">
+            <div class="form-group">
+                <label for="target"><i class="fa-solid fa-mobile-alt"></i> Target Number</label>
+                <input type="tel" id="target" placeholder="628xxxxxxxxx" required>
+            </div>
+
+            <div class="form-group">
+                <label for="method"><i class="fa-solid fa-meteor"></i> Attack Method</label>
+                <select id="method" required>
+                    <option value="">Select Method</option>
+                    <option value="forcecall">Force Call</option>
+                    <option value="crash">Crash (Blank)</option>
+                    <option value="ios">iOS Crash</option>
+                    <option value="delay">Delay Attack</option>
+                    <option value="native">Native Flow</option>
+                    <option value="combo">Combo Attack</option>
+                    <option value="queenflows2">QueenFlows2</option>
+                    <option value="queenflows>QueenFlows</option>
+                    <option value="interactivecall">Interactive Call</option>
+              </select>
+            </div>
+
+            <button type="submit" class="attack-btn" id="attackBtn">
+                <i class="fa-solid fa-bolt"></i> LAUNCH ATTACK
+            </button>
+        </form>
+
+        <div id="result" class="result"></div>
+
+        <button type="button" class="logout-btn" onclick="logout()">
+            <i class="fa-solid fa-sign-out-alt"></i> Logout
+        </button>
+
+        <div class="footer">
+            <p><i class="fa-solid fa-shield-alt"></i> Powered by <a href="https://t.me/xpxteams" target="_blank"><i class="fa-brands fa-telegram"></i> @xpxteams</a></p>
+            <p>Made with <i class="fa-solid fa-heart"></i> by <a href="https://t.me/Dimzxzzx" target="_blank"><i class="fa-solid fa-laptop-code"></i> DimzxzzxXP <i class="fa-solid fa-gem"></i></a></p>
+        </div>
+    </div>
+
+    <script>
+        // Check authentication
+        const token = localStorage.getItem('authToken');
+        if (!token) {
+            window.location.href = '/';
+        }
+
+        // Load user info
+        function loadUserInfo() {
+            try {
+                // IMPORTANT: For real applications, user info should be fetched securely from a backend API
+                const payload = JSON.parse(atob(token));
+                document.getElementById('username').textContent = payload.username || 'User';
+                document.getElementById('userRole').textContent = payload.role || 'VIP';
+            } catch (error) {
+                console.error('Error loading user info or invalid token:', error);
+                logout(); // Log out if token is invalid
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadUserInfo);
+
+        // Form submission
+        document.getElementById('attackForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const target = document.getElementById('target').value.trim();
+            const method = document.getElementById('method').value;
+            const resultDiv = document.getElementById('result');
+            const attackBtn = document.getElementById('attackBtn');
+            
+            // Validate inputs
+            if (!target || !method) {
+                showResult('❌ Harap isi semua kolom.', 'error');
+                return;
+            }
+
+            // Validate phone number format
+            // Remove all non-digit characters and check against the regex
+            const cleanTarget = target.replace(/\D/g, ''); 
+            const phoneRegex = /^(62|08)\d{8,13}$/; // Allows 62 or 08 prefix, followed by 8-13 digits
+
+            if (!phoneRegex.test(cleanTarget)) {
+                showResult('❌ Format nomor telepon tidak valid. Gunakan 628xxxx atau 08xxxx.', 'error');
+                return;
+            }
+
+            // Show loading
+            attackBtn.innerHTML = '<span class="loading"></span><i class="fa-solid fa-spinner fa-spin"></i> Meluncurkan Serangan...';
+            attackBtn.disabled = true;
+            resultDiv.style.display = 'none';
+
+            try {
+                // --- SIMULASI PANGGILAN API ATTACK (Ganti dengan API real Anda) ---
+                // Dalam aplikasi nyata, Anda akan melakukan fetch ke backend Anda.
+                const simulatedResponse = await new Promise(resolve => setTimeout(() => {
+                    // Contoh logika simulasi:
+                    if (cleanTarget.length >= 10 && cleanTarget.length <= 15) { // Basic length check for valid looking number
+                        resolve({
+                            ok: true, // Simulate successful response
+                            json: () => Promise.resolve({
+                                target: target,
+                                metode: method,
+                                user: document.getElementById('username').textContent || 'User',
+                                status: 'Success',
+                                message: 'Attack request sent successfully.'
+                            })
+                        });
+                    } else {
+                        resolve({
+                            ok: false, // Simulate failed response
+                            json: () => Promise.resolve({
+                                status: 'Error',
+                                message: 'Simulasi: Nomor telepon tidak memenuhi kriteria simulasi.'
+                            })
+                        });
+                    }
+                }, 1500)); // Simulate network delay 1.5 seconds
+
+                const response = simulatedResponse; // Using simulated response
+                const data = await response.json();
+
+                if (response.ok) { // Check response.ok from simulated response
+                    showResult(`✅ <i class="fa-solid fa-check-circle"></i> Serangan berhasil diluncurkan!<br>📱 Target: ${data.target}<br>⚡ Metode: ${data.metode.toUpperCase()}<br>👤 User: ${data.user}`, 'success');
+                } else {
+                    showResult(`❌ <i class="fa-solid fa-times-circle"></i> Error: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                console.error('Attack error:', error);
+                showResult('❌ <i class="fa-solid fa-exclamation-triangle"></i> Terjadi kesalahan jaringan. Silakan coba lagi.', 'error');
+            } finally {
+                // Reset button
+                setTimeout(() => {
+                    attackBtn.innerHTML = '<i class="fa-solid fa-bolt"></i> LAUNCH ATTACK'; // Mengembalikan ikon asli
+                    attackBtn.disabled = false;
+                }, 2000); // Wait a bit before resetting button
+            }
+        });
+
+        // Function to display result messages
+        function showResult(message, type) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = message;
+            resultDiv.className = `result ${type}`;
+            resultDiv.style.display = 'block';
+            
+            // Auto hide after 5 seconds for success messages
+            if (type === 'success') {
+                setTimeout(() => {
+                    resultDiv.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('authToken');
+            window.location.href = '/';
+        }
+
+        // Auto-format phone number for 62 prefix
+        document.getElementById('target').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+            
+            // If it starts with '0', replace with '62'
+            if (value.startsWith('0')) {
+                value = '62' + value.substring(1);
+            } 
+            // If it starts with '8' and is not '628', prepend '62'
+            else if (value.startsWith('8') && !value.startsWith('62')) {
+                 value = '62' + value;
+            }
+            // Keep '62' if already present
+            
+            e.target.value = value;
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + Enter to submit
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                document.getElementById('attackForm').dispatchEvent(new Event('submit'));
+            }
+            
+            // Escape to clear
+            if (e.key === 'Escape') {
+                document.getElementById('target').value = '';
+                document.getElementById('method').selectedIndex = 0;
+                document.getElementById('result').style.display = 'none';
+            }
+        });
+
+        // Prevent right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        // Disable text selection for security
+        document.addEventListener('selectstart', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+            }
+        });
+
+        // Add focus effects to form groups
+        document.querySelectorAll('.form-group input, .form-group select').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.closest('.form-group').style.transform = 'scale(1.02)';
+            });
+            
+            input.addEventListener('blur', function() {
+                this.closest('.form-group').style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
