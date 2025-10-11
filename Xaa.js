@@ -3091,6 +3091,4 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-app.listen(PORT, () => {
-  console.log(`${chalk.green('Server Active On Port')} ${PORT}`);
-});
+export default app;
