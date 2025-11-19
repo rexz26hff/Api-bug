@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XAVIERA-X — Login</title>
+
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#000;
+  --panel:#070707;
+  --white:#fff;
+  --muted:#a1a1a1;
+  --accent:#27e8ff;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:Poppins,sans-serif;
+  background:linear-gradient(180deg,#000 0%,#050505 100%);
+  color:var(--white);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  overflow:hidden;
+}
+
+/* LOGIN APP */
+.img{
+  width:250px;height:160px;border-radius:10px;object-fit:cover;background:#070707;
+  border:1px solid rgba(255,255,255,0.06);
+}
+
+.app{
+  width:100%;max-width:420px;height:92vh;border-radius:18px;overflow:hidden;
+  display:flex;flex-direction:column;background:linear-gradient(180deg,#050505,#070707);
+  box-shadow:0 18px 60px rgba(0,0,0,0.65);
+  border:1px solid rgba(255,255,255,0.03);
+}
+
+.main{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:28px;gap:14px;
+}
+
+.brand{text-align:center;margin-bottom:6px;}
+.brand .title{font-family:Orbitron,sans-serif;font-size:22px;margin-bottom:4px;}
+.brand .subtitle{font-size:13px;color:var(--muted);}
+
+form{width:100%;max-width:320px;display:flex;flex-direction:column;gap:12px;margin-top:6px;}
+
+.field{position:relative;}
+.field i{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);
+}
+
+input[type="text"],input[type="password"]{
+  width:100%;padding:14px 16px 14px 44px;border-radius:12px;background:var(--panel);
+  border:1px solid rgba(255,255,255,0.06);color:var(--white);text-align:center;font-size:15px;
+}
+
+.cta{
+  margin-top:6px;padding:14px;border-radius:14px;background:var(--white);color:#000;
+  font-weight:800;font-size:15px;border:none;cursor:pointer;
+}
+
+.bottom{
+  height:76px;display:flex;align-items:center;justify-content:center;
+  border-top:1px solid rgba(255,255,255,0.02);padding:10px 18px;
+}
+
+.buy-access{
+  color:var(--muted);text-decoration:none;padding:8px 14px;border-radius:10px;
+  border:1px solid rgba(255,255,255,0.04);font-weight:600;
+}
+
+/* ===================== INTRO VORLEX ===================== */
+#intro {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999998; /* lebih rendah dari Dark Knight loader */
+  animation: introFade 5.2s forwards;
+}
+
+#introImage {
+  width: 280px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  opacity: 0;
+  transform: scale(1.2);
+  filter: brightness(0.8);
+  animation: introImg 3.2s forwards;
+}
+
+#introTitle {
+  margin-top: 18px;
+  font-family: Orbitron;
+  font-size: 33px;
+  font-weight: 700;
+  letter-spacing: 6px;
+  color: #fff;
+  text-shadow: 0 0 8px #fff;
+  opacity: 0;
+  animation: introTitleAnim 5s forwards 0.4s;
+}
+
+#introBar {
+  width: 210px;
+  height: 5px;
+  background: #222;
+  border-radius: 10px;
+  margin-top: 14px;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeBar 4.5s forwards 0.8s;
+}
+
+#introBarFill {
+  width: 0%;
+  height: 100%;
+  background: #c538ff;
+  border-radius: 10px;
+  animation: barFillAnim 4s forwards 1s;
+}
+
+@keyframes introImg {
+  0% { opacity: 0; transform: scale(1.15); filter: blur(5px); }
+  40% { opacity: 1; filter: blur(0); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes introTitleAnim {
+  0% { opacity: 0; transform: translateY(10px); }
+  40% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; filter: blur(0); }
+  100% { opacity: 0; transform: translateY(-5px); filter: blur(3px); }
+}
+
+@keyframes barFillAnim {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes fadeBar {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes introFade {
+  0% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { opacity: 0; pointer-events: none; }
+}
+
+/* ===================== DARK KNIGHT LOADER ===================== */
+#darkKnightLoader {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+}
+
+.dk-hex {
+  width: 80px;
+  height: 80px;
+  border: 3px solid rgba(150, 130, 255, 0.6);
+  border-radius: 12px;
+  transform: rotate(45deg);
+  animation: rotateHex 2s linear infinite;
+}
+
+.dk-circle {
+  width: 60px;
+  height: 60px;
+  border: 3px solid rgba(150, 130, 255, 0.3);
+  border-top-color: rgb(180, 160, 255);
+  border-radius: 50%;
+  margin-top: 25px;
+  animation: spinCircle 1.2s linear infinite;
+}
+
+.dk-dots {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.dk-dots div {
+  width: 10px;
+  height: 10px;
+  background: rgb(180, 160, 255);
+  border-radius: 50%;
+  animation: dotPulse 1s infinite ease-in-out;
+}
+
+.dk-dots div:nth-child(2) { animation-delay: 0.2s; }
+.dk-dots div:nth-child(3) { animation-delay: 0.4s; }
+
+.dk-text {
+  color: white;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 3px;
+}
+
+@keyframes rotateHex { 0%{transform:rotate(45deg);} 100%{transform:rotate(405deg);} }
+@keyframes spinCircle { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
+@keyframes dotPulse { 0%,100%{opacity:0.2;transform:scale(0.9);}50%{opacity:1;transform:scale(1.2);} }
+</style>
+</head>
+<body>
+
+<!-- INTRO -->
+<div id="intro">
+  <img id="introImage" src="https://files.catbox.moe/ank7my.jpg">
+  <div id="introTitle">X-XAVIERA</div>
+  <div id="introBar">
+    <div id="introBarFill"></div>
+  </div>
+</div>
+
+<!-- DARK KNIGHT LOADER -->
+<div id="darkKnightLoader">
+  <div class="dk-hex"></div>
+  <div class="dk-text">X-XAVIERA</div>
+  <div class="dk-circle"></div>
+  <div class="dk-dots">
+    <div></div><div></div><div></div>
+  </div>
+</div>
+
+<!-- LOGIN UI -->
+<div class="app">
+  <div class="main">
+    <div class="brand">
+      <img class="img" src="https://files.catbox.moe/ank7my.jpg">
+      <div class="title">X-XAVIERA</div>
+      <div class="subtitle">Secure Access Gateway</div>
+    </div>
+
+    <form method="POST" action="/auth" autocomplete="off">
+      <div class="field">
+        <i class="fas fa-user"></i>
+        <input type="text" name="username" placeholder="Username" required>
+      </div>
+
+      <div class="field">
+        <i class="fas fa-key"></i>
+        <input type="password" name="key" placeholder="Password" required>
+      </div>
+
+      <button class="cta" type="submit">
+        <i class="fa-solid fa-right-to-bracket" style="margin-right:8px;"></i> Login
+      </button>
+    </form>
+  </div>
+
+  <div class="bottom">
+    <a class="buy-access" href="https://t.me/Rexz_Infinity" target="_blank">Buy Key Access</a>
+  </div>
+</div>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+const form = document.querySelector('form');
+const loader = document.getElementById('darkKnightLoader');
+
+form.addEventListener('submit', function(e){
+  e.preventDefault(); // hentikan submit sementara
+
+  // tampilkan Dark Knight loader
+  loader.style.display = 'flex';
+  loader.style.opacity = '0';
+  loader.style.transition = 'opacity 0.3s';
+  setTimeout(()=> loader.style.opacity = '1', 10);
+
+  // tunggu 2 detik lalu submit form
+  setTimeout(()=>{
+    form.submit();
+  }, 5000);
+});
+</script>
+
+</body>
+</html>
